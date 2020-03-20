@@ -1,5 +1,5 @@
-var canvas = document.querySelector("canvass");
-var ctx = canvass.getContext("2d");
+var canvas = document.querySelector("canvas");
+var ctx = canvas.getContext("2d");
 // variables for height and width
 var W;
 var H;
@@ -8,7 +8,7 @@ var pi;
 var answ;
 var sumrad;
 
-
+  ctx.lineWidth = 2;
 
 //settings for circledrawing
 var circles = [];
@@ -21,8 +21,11 @@ function changecanvas(){
    H = document.getElementById("HTMH").value;
    W = document.getElementById("HTMW").value;
 
-   document.getElementById("canvass").style.height = H + "px";
-   document.getElementById("canvass").style.width = W + "px";
+
+   document.getElementById("canvas").style.height = H + "px";
+   document.getElementById("canvas").style.width = W + "px";
+
+
 
    var mesures = H, W;
     size = mesures;
@@ -30,15 +33,16 @@ function changecanvas(){
    sumrad = (W * H);
    answ = 0;
    pi = 0;
-   ctx.lineWidth = 2;
+
 
 
 
 
  for (var i = 0; i < total; i++){
-   drawcircle();
+
+drawcircle();
  }
- changetext();
+
 }
 
 function changetext(){
@@ -49,6 +53,7 @@ function changetext(){
 // Drawing function
 function drawcircle()
 {
+
 var newcircle;
 var safetodraw = false;
 for(var tries = 0; tries < circleattempt; tries++ ){
@@ -80,9 +85,9 @@ for(var tries = 0; tries < circleattempt; tries++ ){
     }
   }
   //if circle has space then displayed
-pi += Math.PI *(newcircle.radius * newcircle.radius);
-answ = (pi / sumrad) * 100;
-changetext();
+  pi += Math.PI *(newcircle.radius * newcircle.radius);
+  answ = (pi / sumrad) * 100;
+  changetext();
 
   circles.push(newcircle);
   ctx.beginPath();
@@ -103,18 +108,16 @@ function doeshavecollision(circle)
 
     }
   }
+  if(circle.x + circle.radius >= size ||
+    circle.x - circle.radius <= 0) {
+   return true;
+ }
 
-  if (circle.x + circle.radius >= size || circle.x - circle.radius <=0) {
-  return true;
+ if(circle.y + circle.radius >= size ||
+     circle.y - circle.radius <= 0) {
+   return true;
+ }
 
-  }
-
-    if(circle.x + circle.radius >= size || circle.y - circle.radius <= 0){
-    return true;
-    }
-      if(circle.y + circle.radius >= size || circle.y - circle.radius <= 0) {
-       return true;
-      }
 //circle removed
         return false;
 }
